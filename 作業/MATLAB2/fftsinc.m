@@ -1,0 +1,27 @@
+N=1001;
+T=100;
+N1=500;
+n=linspace(-N1,N1,N);
+Ts=T/N1;
+x=sinc(n*Ts); 
+figure(1);
+stem(n,x);
+X=fft(x);
+X=fftshift(abs(X));
+Omega=2*pi*n/1001;
+figure(2);
+plot(Omega,X);
+Tw=T/2;
+w=zeros(1,1001);
+for i=-(Tw/2)/Ts+N1+1:(Tw/2)/Ts+N1+1
+    w(1,i)=0.5*(1+cos(2*pi*abs(n(1,i)*Ts)/Tw));  
+end
+figure(3);
+stem(n,w);
+y=x.*w;
+figure(4);
+stem(n,y);
+Y=fft(y);
+Y=fftshift(abs(Y));
+figure(5);
+plot(Omega,Y);
